@@ -1,0 +1,128 @@
+\documentclass [12pt] {article}
+\usepackage[dvips]{graphicx}
+\usepackage{color}
+\usepackage{amssymb,amsmath,amsfonts,amsthm,bm}
+\usepackage{xfrac}
+\usepackage[backref,letterpaper]{hyperref}
+
+\textheight 9.0in
+\textwidth 6.5in
+\oddsidemargin -0.225in
+\evensidemargin -0.225in
+\topmargin -0.5in
+
+\newcommand{\bfdelta}{{\bm{\delta}}}
+\newcommand{\bfnu}{{\bm{\nu}}}
+\newcommand{\bff}{{\bm{f}}}
+\newcommand{\bbC}{{\mathbb{C}}}
+\newcommand{\calD}{{\mathcal{D}}}
+\newcommand{\bbF}{{\mathbb{F}}}
+\newcommand{\calL}{{\mathcal{L}}}
+\newcommand{\bbR}{{\mathbb{R}}}
+\newcommand{\bfP}{{\mathbf{P}}}
+\newcommand{\calS}{{\mathcal{S}}}
+\newcommand{\bfu}{{\mathbf{u}}}
+\newcommand{\bfv}{{\mathbf{v}}}
+\newcommand{\bfw}{{\mathbf{w}}}
+\newcommand{\bfx}{{\mathbf{x}}}
+\newcommand{\bfy}{{\mathbf{y}}}
+\newcommand{\bfz}{{\mathbf{z}}}
+\newcommand{\bbZ}{{\mathbb{Z}}}
+\newcommand{\bfzero}{{\mathbf{0}}}
+\newcommand{\bfone}{{\mathbf{1}}}
+\newcommand{\Var}{{\mbox{Var}}}
+\newcommand{\notsubseteq}{{\subseteq \hspace{-0.15in}/\;}}
+\newcommand{\nin}{\notin}
+\newcommand{\supp}{{\mbox{supp}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Change course, date, etc. here and the 
+% header will be automatically generated.
+%
+%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\class}{Math 166}
+\newcommand{\classname}{Statistics}
+\newcommand{\term}{Fall 2022}
+\newcommand{\assignment}{Homework 3}
+\newcommand{\duedate}{Due: 2/10 11:59pm}
+%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\noindent \textbf{\class \hfill \assignment~\footnote{\copyright 2022, Bruce M. Boghosian, edited by Merek Johnson, all rights reserved.}}\\
+\textbf{\classname \hfill \duedate} \\
+\rule[1ex]{\textwidth}{.1pt}
+
+\noindent \textbf{Book problems:}  5.6.6 \\
+To determine whether $W$ is a sufficient statistic, we have to show that it factors into the product of the PDF for $\hat{\theta}$ and a constant that does not involve $\theta$.
+\begin{align*}
+L\left(\theta \right) 
+&=\prod_{i=1}^{n}f_Y\left(y_i;\theta \right) = f_{\hat{\theta}}\left(\theta_e;\theta \right)\cdot b\left(y_1,...,y_n\right)\\
+&=\prod_{i=1}^{n}\theta y_i^{\theta-1}\\
+&=\theta^n\prod_{i=1}^{n}y_i^{-1} \\
+&= f_{\hat{\theta}}\left(\theta_e;\theta \right)\cdot b\left(y_1,...,y_n\right)\\
+\end{align*}
+Given that the above is true, $W$ is a sufficient statistic.\\
+\\
+To find the maximum likelihood estimator, we find $\ln L(\theta)$, set the partial derivative for $\theta$ equal to 0, and solve.
+\begin{align*}
+\ln L\left(\theta \right)
+&= n\ln\theta + \theta\ln W - \ln W 
+\end{align*}
+\begin{align*}
+0
+&=\frac{\partial \ln L\left(\theta\right)}{\partial \theta}\\
+&=\frac{n}{\theta} + \ln W\\
+-\ln W
+&= \frac{n}{\theta}\\
+-\theta\ln W
+&= n\\
+\hat{\theta}_{mle}
+&= -\frac{n}{\ln W}
+\end{align*}
+Given the above, the maximum likelihood estimator $(\hat{\theta})$ is indeed a function of $W$.\\
+
+\noindent \textbf{Written problems:}\\
+
+\begin{enumerate}
+
+\item This problem and the next one examine the pdf
+\[
+f_X(x) = \left\{
+\begin{array}{ll}
+(1+\gamma)x^\gamma & \mbox{if $0\leq x\leq 1$}\\
+0 & \mbox{otherwise,}
+\end{array}
+\right.
+\]
+where $\gamma>-1$.
+	\begin{enumerate}
+	\item Verify that $f_X$ is normalized.
+	\item Find the maximum likelihood estimator $\hat{\gamma}_{\mbox{\tiny mle}}$ for the parameter $\gamma$.  Show that it is unbiased when recast as an estimator $\hat{\alpha}$ for the parameter $\alpha = \frac{1}{1+\gamma}$.
+	\item Find the method of moments estimator $\hat{\gamma}_{\mbox{\tiny mm}}$ for the parameter $\gamma$.  Show that it is unbiased when recast as an estimator $\hat{\beta}$ for the parameter $\beta = \frac{1+\gamma}{2+\gamma}$.
+%	\item In the limit where $\gamma$ is very small in magnitude, so that the linearization~\footnote{i.e., the Maclaurin expansion of $\alpha = \frac{1}{1+\gamma}$ in $\gamma$ to first order in $\gamma$} of $\alpha = \frac{1}{1+\gamma}$ in $\gamma$ is a reasonable approximation, find $\Var(\hat{\gamma}_{\mbox{\tiny mle}})$.  (Hint:  First find $\Var(\hat{\alpha}_{\mbox{\tiny mle}})$, and then use the linearization to relate it to $\Var(\hat{\gamma}_{\mbox{\tiny mle}})$.  Also note that, since you ignored $\gamma$ to powers above linear order at the outset, your final result should likewise contain terms to at most linear order in $\gamma$.)
+%	\item In the limit where $\gamma$ is very small in magnitude, so that the linearization~\footnote{i.e., the Maclaurin expansion of $\beta = \frac{1+\gamma}{2+\gamma}$ in $\gamma$ to first order in $\gamma$} of $\beta = \frac{1+\gamma}{2+\gamma}$ in $\gamma$ is a reasonable approximation, find $\Var(\hat{\gamma}_{\mbox{\tiny mm}})$.  (Hint:  First find $\Var(\hat{\beta}_{\mbox{\tiny mm}})$, and then use the linearization to relate it to $\Var(\hat{\gamma}_{\mbox{\tiny mm}})$.  Note that, since you ignored $\gamma$ to powers above linear order at the outset, your final result should likewise contain terms to at most linear order in $\gamma$.)
+%	\item In the above-described limit of small $\gamma$, find the relative efficiency of $\hat{\gamma}_{\mbox{\tiny mle}}$ with respect to $\hat{\gamma}_{\mbox{\tiny mm}}$.
+	\end{enumerate}
+
+\item For the same pdf introduced in Problem 1, and in the above-described limit of small $\gamma$:
+	\begin{enumerate}
+	\item Find the Cram\'{e}r-Rao lower bound on the variance of the estimator using the first-derivative method.
+	\item Find the Cram\'{e}r-Rao bound using the second-derivative method.
+	\item Find the absolute efficiency of $\hat{\gamma}_{\mbox{\tiny mm}}$.  Show that this is always less than or equal to one for sufficiently small $\gamma$.
+	\item Find the absolute efficiency of $\hat{\gamma}_{\mbox{\tiny mle}}$.  Is this always less than or equal to one for sufficiently small $\gamma$?  Explain.  (Hint:  Examine the assumptions underlying the CR bound.)
+	\end{enumerate}
+
+\item Suppose we have two unbiased estimators $T_1$ and $T_2$ for some unknown parameter $\theta$.
+    \begin{enumerate}
+        \item Show that the linear combination $aT_1+(1-a)T_2$, where $a \in [0,1]$, is also an unbiased estimator for $\theta$.
+        \item If $T_1$ and $T_2$ are also independent i.e. determined from independent samples, then calculate the variance of the linear combination $\text{Var}(aT_1+(1-a)T_2)$ in terms of the variances $\text{Var}(T_1)$ and $\text{Var}(T_2)$.
+        \item For the situation in part (b), what choice of $a$ minimizes $\text{Var}(aT_1+(1-a)T_2)$?
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
