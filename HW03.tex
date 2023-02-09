@@ -3,6 +3,7 @@
 \usepackage{color}
 \usepackage{amssymb,amsmath,amsfonts,amsthm,bm}
 \usepackage{xfrac}
+%\usepackage{html}
 \usepackage[backref,letterpaper]{hyperref}
 
 \textheight 9.0in
@@ -33,6 +34,8 @@
 \newcommand{\Var}{{\mbox{Var}}}
 \newcommand{\notsubseteq}{{\subseteq \hspace{-0.15in}/\;}}
 \newcommand{\nin}{\notin}
+%\newcommand{\addlink}[2]{{\htmladdnormallink {\textcolor{blue}{{#1}}}{{#2}}}}
+\newcommand{\Prob}{{\mbox{Prob}}}
 \newcommand{\supp}{{\mbox{supp}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -43,9 +46,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\class}{Math 166}
 \newcommand{\classname}{Statistics}
-\newcommand{\term}{Fall 2022}
-\newcommand{\assignment}{Homework 3}
-\newcommand{\duedate}{Due: 2/10 11:59pm}
+\newcommand{\term}{James O'Malley}
+\newcommand{\assignment}{Homework 2}
+\newcommand{\duedate}{Due: 2/3 11:59pm}
 %%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -56,73 +59,116 @@
 \textbf{\classname \hfill \duedate} \\
 \rule[1ex]{\textwidth}{.1pt}
 
-\noindent \textbf{Book problems:}  5.6.6 \\
-To determine whether $W$ is a sufficient statistic, we have to show that it factors into the product of the PDF for $\hat{\theta}$ and a constant that does not involve $\theta$.
-\begin{align*}
-L\left(\theta \right) 
-&=\prod_{i=1}^{n}f_Y\left(y_i;\theta \right) = f_{\hat{\theta}}\left(\theta_e;\theta \right)\cdot b\left(y_1,...,y_n\right)\\
-&=\prod_{i=1}^{n}\theta y_i^{\theta-1}\\
-&=\theta^n\prod_{i=1}^{n}y_i^{-1} \\
-&= f_{\hat{\theta}}\left(\theta_e;\theta \right)\cdot b\left(y_1,...,y_n\right)\\
-\end{align*}
-Given that the above is true, $W$ is a sufficient statistic.\\
+\noindent \textbf{Book problems:}  5.3.10\\
+\[ n = 540; k = 192; p_e = 0.356; \alpha = 0.05 \]
+
+Confidence interval = $[p_e-z_{\alpha/2}\frac{\sigma_e}{\sqrt{n}}, p_e+z_{\alpha/2}\frac{\sigma_e}{\sqrt{n}}]$
+
+%\[ Z = \frac{p_e - p}{\sqrt{p_e(1-p_e)/n}} \]
+\[ \sigma_e = p_e(1-p_e) = 0.356(1-0.356) = 0.229264 \]
 \\
-To find the maximum likelihood estimator, we find $\ln L(\theta)$, set the partial derivative for $\theta$ equal to 0, and solve.
-\begin{align*}
-\ln L\left(\theta \right)
-&= n\ln\theta + \theta\ln W - \ln W 
-\end{align*}
-\begin{align*}
-0
-&=\frac{\partial \ln L\left(\theta\right)}{\partial \theta}\\
-&=\frac{n}{\theta} + \ln W\\
--\ln W
-&= \frac{n}{\theta}\\
--\theta\ln W
-&= n\\
-\hat{\theta}_{mle}
-&= -\frac{n}{\ln W}
-\end{align*}
-Given the above, the maximum likelihood estimator $(\hat{\theta})$ is indeed a function of $W$.\\
+We use a table to look up the value of $z_\frac{\alpha}{2}$ at 95\% confidence interval which equals 1.96. The values are then plugged into the confidence interval equation and solved.
+\[ [0.356 - (1.96)\frac{0.229264}{\sqrt{540}}, 0.356 + (1.96)\frac{0.229264}{\sqrt{540}}]  = [0.33667, 0.37533]\]
+\\
+\noindent \textbf{Written problems:} 1\\
+We estimate the first moment by calculating the integral of $f_X(x)$ multiplied by $x$. In HW1, we calculated $C=\frac{2\beta^3}{\pi}$ so can substitute in that value.
+\[ E(X) = \int_{-\infty}^{\infty} dxf(x)x = \int_{-\infty}^{\infty}dx(\frac{2\beta^3}{\pi[\beta^2+(x-\alpha)^2]^2})x \]
+\\
+After solving for the integral as in problem 1(b) on HW1, the result will be $E(X) = \alpha$ which means the estimator for the first moment is:
+\[ E(X) = \hat{\alpha}= \frac{1}{n}\sum_{j=1}^{n}x_{j} \]
+\\
+We estimate the second moment by calculating the integral of $f_X(x)$ multiplied by $x^2$.
+\[ E(X^2) = \int_{-\infty}^{\infty} dxf(x)x^2 = \int_{-\infty}^{\infty}dx(\frac{2\beta^3}{\pi[\beta^2+(x-\alpha)^2]^2})x^2 \]
+\\
+After solving for the integral as in problem 1(c) on HW1, the result will be $E(X^2) = \beta^2 + \alpha^2$. We then set the 
+\[ E(X^2) = \beta^2 + \alpha^2 = \frac{1}{n}\sum_{i=1}^{n}x_{j}^{2} \]
+\[ \frac{1}{n}\sum_{j=1}^{n}x_{j}^{2}= \beta^2 + \alpha^2 \]
+\[ \frac{1}{n}\sum_{j=1}^{n}x_{j}^{2} - \alpha^2= \beta^2 \]
+\[ \beta = \sqrt{\frac{1}{n}\sum_{j=1}^{n}x_{j}^{2} - \alpha^2} \]
+\[ \hat{\beta} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}x_{j}^{2} - [\frac{1}{n}\sum_{j=1}^{n}x_{j}]^2} \]
+\\
+Substituting in the provided values for $\vec{x}$ into $\hat{\alpha}$ and $\hat{\beta}$ we find:
+\[ \hat{\alpha}= \frac{1}{n}\sum_{j=1}^{n}x_{j} = \frac{1}{3}\sum_{j=1}^{n}0+1+(-1) = 0 \]
+\[ \hat{\beta} = \sqrt{\frac{1}{n}\sum_{j=1}^{n}x_{j}^{2} - [\frac{1}{n}\sum_{j=1}^{n}x_{j}]^2} = \sqrt{\frac{1}{3}\sum_{j=1}^{n}(1^2+0^2+(-1)^2) - 0^2} = \sqrt{\frac{2}{3}} \approx 0.81649 \]
+The value for $\hat{\alpha}$ was the same for both the method of moments and MLE, however, $\hat{\beta}$ differed between the two methods (MLE: $\hat{\beta} = \sqrt{\frac{5}{3}}$).\\
+\\
+\noindent \textbf{Written problems:} 2(a)\\
+The normalizing constant sets the value of the probability distribution to 1. To solve for $C$, we set the integral of the $f(y)$ from $-\gamma$ to $\gamma$ equal to 1 and solve.\\
+\[ 1 = \int_{-\gamma}^{\gamma} dyf(y) = \int_{-\gamma}^{\gamma}dy\frac{C}{\sqrt{\gamma^2-y^2}} \]
+\[ C^{-1} = \int_{-\gamma}^{\gamma}\frac{dy}{\sqrt{\gamma^2-y^2}} \]
+\\
+Use trigonometric substitution to simplify.
+\[ y = \gamma sin\theta; dy = \gamma cos\theta d\theta; \theta = arcsin\frac{y}{\gamma} \]
+\[  \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{\gamma cos\theta d\theta}{\sqrt{\gamma^2-\gamma^2sin^2\theta}} \]
+\[ \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{\gamma cos\theta d\theta}{\sqrt{\gamma^2(1-sin^2\theta)}} \]
+\[ \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{\gamma cos\theta d\theta}{\sqrt{\gamma^2cos^2\theta}} \]
+\[ \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\ d\theta \]
+\[ C^{-1} = \theta = arcsin\frac{y}{\gamma} = \pi \]
+\[ C = \frac{1}{\pi} \]
+\\
+\noindent \textbf{Written problems:} 2(b)\\
+To find $E(Y)$, we calculate the integral of $f_Y(y)$ multiplied by $y$.
+\[ E(Y) = \int_{-\gamma}^{\gamma} dyf(y)y = \int_{-\gamma}^{\gamma}dy\frac{C}{\sqrt{\gamma^2-y^2}}y =\int_{-\gamma}^{\gamma}dy\frac{1}{\pi\sqrt{\gamma^2-y^2}}y \]
+\[ \int_{-\gamma}^{\gamma}dy\frac{y}{\pi\sqrt{\gamma^2-y^2}} \]
+\[ \frac{1}{\pi}\int_{-\gamma}^{\gamma}dy\frac{y}{\sqrt{\gamma^2-y^2}} \]
 
-\noindent \textbf{Written problems:}\\
+Use u-substitution to simplify:\\
+\[ u = \gamma^2-y^2\]
+\[ \frac{1}{2\pi}\int_{-\gamma}^{\gamma}du\frac{1}{\sqrt{u}} \]
 
-\begin{enumerate}
+Use power rule to solve:
+\[ \int_{-\gamma}^{\gamma}du\frac{1}{\sqrt{u}} = 2\sqrt{u}\]
+\[ (\frac{1}{2\pi})(2\sqrt{u})\]
+\[ \frac{\sqrt{u}}{\pi} = \frac{\sqrt{\gamma^2-y^2}}{\pi} \]
+\[ E(Y) = 0 \]
 
-\item This problem and the next one examine the pdf
-\[
-f_X(x) = \left\{
-\begin{array}{ll}
-(1+\gamma)x^\gamma & \mbox{if $0\leq x\leq 1$}\\
-0 & \mbox{otherwise,}
-\end{array}
-\right.
-\]
-where $\gamma>-1$.
-	\begin{enumerate}
-	\item Verify that $f_X$ is normalized.
-	\item Find the maximum likelihood estimator $\hat{\gamma}_{\mbox{\tiny mle}}$ for the parameter $\gamma$.  Show that it is unbiased when recast as an estimator $\hat{\alpha}$ for the parameter $\alpha = \frac{1}{1+\gamma}$.
-	\item Find the method of moments estimator $\hat{\gamma}_{\mbox{\tiny mm}}$ for the parameter $\gamma$.  Show that it is unbiased when recast as an estimator $\hat{\beta}$ for the parameter $\beta = \frac{1+\gamma}{2+\gamma}$.
-%	\item In the limit where $\gamma$ is very small in magnitude, so that the linearization~\footnote{i.e., the Maclaurin expansion of $\alpha = \frac{1}{1+\gamma}$ in $\gamma$ to first order in $\gamma$} of $\alpha = \frac{1}{1+\gamma}$ in $\gamma$ is a reasonable approximation, find $\Var(\hat{\gamma}_{\mbox{\tiny mle}})$.  (Hint:  First find $\Var(\hat{\alpha}_{\mbox{\tiny mle}})$, and then use the linearization to relate it to $\Var(\hat{\gamma}_{\mbox{\tiny mle}})$.  Also note that, since you ignored $\gamma$ to powers above linear order at the outset, your final result should likewise contain terms to at most linear order in $\gamma$.)
-%	\item In the limit where $\gamma$ is very small in magnitude, so that the linearization~\footnote{i.e., the Maclaurin expansion of $\beta = \frac{1+\gamma}{2+\gamma}$ in $\gamma$ to first order in $\gamma$} of $\beta = \frac{1+\gamma}{2+\gamma}$ in $\gamma$ is a reasonable approximation, find $\Var(\hat{\gamma}_{\mbox{\tiny mm}})$.  (Hint:  First find $\Var(\hat{\beta}_{\mbox{\tiny mm}})$, and then use the linearization to relate it to $\Var(\hat{\gamma}_{\mbox{\tiny mm}})$.  Note that, since you ignored $\gamma$ to powers above linear order at the outset, your final result should likewise contain terms to at most linear order in $\gamma$.)
-%	\item In the above-described limit of small $\gamma$, find the relative efficiency of $\hat{\gamma}_{\mbox{\tiny mle}}$ with respect to $\hat{\gamma}_{\mbox{\tiny mm}}$.
-	\end{enumerate}
 
-\item For the same pdf introduced in Problem 1, and in the above-described limit of small $\gamma$:
-	\begin{enumerate}
-	\item Find the Cram\'{e}r-Rao lower bound on the variance of the estimator using the first-derivative method.
-	\item Find the Cram\'{e}r-Rao bound using the second-derivative method.
-	\item Find the absolute efficiency of $\hat{\gamma}_{\mbox{\tiny mm}}$.  Show that this is always less than or equal to one for sufficiently small $\gamma$.
-	\item Find the absolute efficiency of $\hat{\gamma}_{\mbox{\tiny mle}}$.  Is this always less than or equal to one for sufficiently small $\gamma$?  Explain.  (Hint:  Examine the assumptions underlying the CR bound.)
-	\end{enumerate}
+To find $E(Y^2)$, we calculate the integral of $f_Y(y)$ multiplied by $y^2$.
+\[ E(Y^2) = \int_{-\gamma}^{\gamma} dyf(y)y^2 = \int_{-\gamma}^{\gamma}dy\frac{1}{\pi\sqrt{\gamma^2-y^2}}y ^2\]
+\[ \int_{-\gamma}^{\gamma}dy\frac{y^2}{\pi\sqrt{\gamma^2-y^2}}\]
+\[ \frac{1}{\pi} \int_{-\gamma}^{\gamma}dy\frac{y^2}{\sqrt{\gamma^2-y^2}}\]
 
-\item Suppose we have two unbiased estimators $T_1$ and $T_2$ for some unknown parameter $\theta$.
-    \begin{enumerate}
-        \item Show that the linear combination $aT_1+(1-a)T_2$, where $a \in [0,1]$, is also an unbiased estimator for $\theta$.
-        \item If $T_1$ and $T_2$ are also independent i.e. determined from independent samples, then calculate the variance of the linear combination $\text{Var}(aT_1+(1-a)T_2)$ in terms of the variances $\text{Var}(T_1)$ and $\text{Var}(T_2)$.
-        \item For the situation in part (b), what choice of $a$ minimizes $\text{Var}(aT_1+(1-a)T_2)$?
-    \end{enumerate}
+Use trigonometric substitution to simplify.
+\[ y = \gamma sin(u), u = arcsin\frac{y}{\gamma}, dy = \gamma cos(u)du\]
+\[\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du\frac{\gamma^3cos(u)sin^2(u)}{\sqrt{\gamma^2-\gamma^2sin^2(u)}}\]
+\[\gamma^2\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du sin^2(u) \]
+\[ \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du sin^2(u) = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du\frac{1-cos(2u)}{2} \]
+\[ \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du\frac{1}{2}- \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}du\frac{cos(2u)}{2} \]
+\[ \frac{\pi}{2} - \frac{1}{2}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}ducos(2u) \]
+\[ \frac{\pi}{2} - \frac{1}{2}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}sin(2u) \]
+\[ \frac{\pi}{2} - \frac{sin(2u)}{4} \]
+\[ (\frac{1}{\pi})(\gamma^2)(\frac{\pi}{2} -\frac{sin(2arcsin(\frac{y}{\gamma}))}{4}) \]
+\[ E(Y^2) = \frac{\gamma^2}{2} \]
 
-\end{enumerate}
+
+\noindent \textbf{Written problems:} 2(c)\\
+To find an equation for the maximum likelihood estimator for $\hat{\gamma}_{mle}$, we find $lnL(\gamma)$, set the partial derivative for $\gamma$ equal to 0, and solve.
+
+\[ lnL(\gamma) = ln\prod_{i=1}^{n}\frac{1}{\pi\sqrt{\gamma^2-y^2}} = nln\frac{1}{\pi} - \frac{1}{2}\sum_{i=1}^{n}ln\gamma^2-y^2 \] 
+\[ 0 = \frac{\partial lnL}{\partial \gamma} = \sum_{i=1}^{n}\frac{\gamma}{\gamma^2-y^2} = \frac{1}{n}\sum_{i=1}^{n}\frac{\hat{\gamma}}{\hat{\gamma}^2-y^2} \]
+\\
+\noindent \textbf{Written problems:} 2(d)\\
+To find the method of moments estimator, we can use the results of problem 2(b) to calculate $\hat{\gamma}_{mme}$.
+\[ E(Y) = 0; E(Y^2) = \frac{\gamma^2}{2} \]
+\[ \frac{\gamma^2}{2} = \frac{1}{n}\sum_{i=1}^{n}y_i \]
+\[ \gamma^2 = \frac{2}{n}\sum_{i=1}^{n}y_i  \]
+\[ \gamma = \sqrt{\frac{2}{n}\sum_{i=1}^{n}y_i}  \]
+
+
+\[ \hat{\gamma}_{mme} = \sqrt{\frac{2}{n}\sum_{i=1}^{n}y_i} \]
+
+\noindent \textbf{Written problems:} 3(a)\\
+First, we need to calculate an estimate for $\mu$ using provided information.
+
+\[ \mu_e = \bar{y} = (\frac{1}{n})\sum_{j=1}^{n}y_{i} = (\frac{1}{4})(263) = 65.75 \]
+Confidence interval = $[\bar{Y}-z_{\alpha/2}\frac{\sigma_e}{\sqrt{n}}, \bar{Y}+z_{\alpha/2}\frac{\sigma_e}{\sqrt{n}}]$; for 95\% confidence interval, $z_{\alpha/2} = 1.96$; $\sigma$.
+\[ [65.75-(1.96)(\frac{\sqrt{5}}{\sqrt{4}}), 65.75+(1.96)(\frac{\sqrt{5}}{\sqrt{4}})] \]
+\[ [63.55865, 67.94134] \]
+
+\noindent \textbf{Written problems:} 3(b)\\
+To find the probability that the true mean is within the confidence interval from 3(a), we use a z-score table to look up the area when $Z=\pm1.96$. From the table, we find $p= 0.975$ and $p=0.025$ which means $p = 0.975 - 0.025 = .95$ as expected from a 95\% confidence interval.\\
+\\
+\noindent \textbf{Written problems:} 3(c)\\
+If the sampling process was repeated 1,000 times, we would expect 950 (1,000*0.95) of the constructed confidence intervals to contain the true mean of $\mu$.
 
 \end{document}
